@@ -26,6 +26,7 @@
     "eslint": "^9.39.1"
   },
   "dependencies": {
-    "commander": "^14.0.2"
+    "commander": "^14.0.2",
+    "lodash": "^4.17.21"
   }
 }
