@@ -31,9 +31,9 @@ jobs:
       - name: Upload coverage to SonarCloud
         uses: sonarsource/sonarcloud-github-action@v2
         with:
-          projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
-          organization: ${{ secrets.SONAR_ORG }}
-          token: ${{ secrets.SONAR_TOKEN }}
+          projectKey: YOUR_PROJECT_KEY
+          organization: YOUR_ORG
+          token: YOUR_TOKEN
           extraProperties: |
             sonar.sources=.
             sonar.javascript.lcov.reportPaths=coverage/lcov.info
