@@ -1,14 +1,19 @@
 import fs from 'fs'
 import path from 'path'
+import yaml from 'js-yaml'
 
 export const parseFile = (filepath) => {
   const absolutePath = path.resolve(process.cwd(), filepath)
   const content = fs.readFileSync(absolutePath, 'utf-8')
-  const ext = path.extname(absolutePath)
+  const ext = path.extname(absolutePath).toLowerCase()
 
   switch (ext) {
     case '.json':
       return JSON.parse(content)
+
+    case '.yml':
+    case '.yaml':
+      return yaml.load(content)
 
     default:
       throw new Error(`Unknown file format: ${ext}`)

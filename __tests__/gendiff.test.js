@@ -1,25 +1,37 @@
+import { fileURLToPath } from 'url'
 import path from 'path'
 import fs from 'fs'
-import { fileURLToPath } from 'url'
 import { genDiff } from '../gendiff.js'
+import { parseFile } from '../parsers.js'
 import { test, expect } from '@jest/globals'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+const getFixturePath = filename => path.join(__dirname, '..', '__fixtures__', filename)
+const readFile = filename => fs.readFileSync(getFixturePath(filename), 'utf-8')
 
-test('compare flat JSON files', () => {
-  const file1 = path.join(__dirname, '../__fixtures__/file1.json')
-  const file2 = path.join(__dirname, '../__fixtures__/file2.json')
+test('gendiff json files', () => {
+  const file1 = getFixturePath('file1.json')
+  const file2 = getFixturePath('file2.json')
 
-  const data1 = JSON.parse(fs.readFileSync(file1, 'utf-8'))
-  const data2 = JSON.parse(fs.readFileSync(file2, 'utf-8'))
+  const data1 = parseFile(file1)
+  const data2 = parseFile(file2)
 
   const result = genDiff(data1, data2)
+  const expected = readFile('expected.txt')
 
-  const expected = `{
-  key1: value1
-  key2: value2
-}`
+  expect(result).toBe(expected.trim())
+})
 
-  expect(result).toBe(expected)
+test('gendiff yaml files', () => {
+  const file1 = getFixturePath('file1.yml')
+  const file2 = getFixturePath('file2.yml')
+
+  const data1 = parseFile(file1)
+  const data2 = parseFile(file2)
+
+  const result = genDiff(data1, data2)
+  const expected = readFile('expected.txt')
+
+  expect(result).toBe(expected.trim())
 })
