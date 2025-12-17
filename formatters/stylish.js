@@ -27,10 +27,10 @@ const stylish = (diff) => {
           return `${indent(depth)}- ${key}: ${stringify(node.value, depth + 1)}`
         case 'unchanged':
           return `${indent(depth)}  ${key}: ${stringify(node.value, depth + 1)}`
-        case 'changed':
+        case 'updated':
           return [
-            `${indent(depth)}- ${key}: ${stringify(node.oldValue, depth + 1)}`,
-            `${indent(depth)}+ ${key}: ${stringify(node.newValue, depth + 1)}`,
+            `${indent(depth)}- ${key}: ${stringify(node.value1, depth + 1)}`,
+            `${indent(depth)}+ ${key}: ${stringify(node.value2, depth + 1)}`,
           ].join('\n')
         case 'nested':
           return `${indent(depth)}  ${key}: {\n${iter(node.children, depth + 1)}\n${' '.repeat(depth * 4)}}`

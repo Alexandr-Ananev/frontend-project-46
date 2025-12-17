@@ -10,5 +10,8 @@
 <!-- SonarCloud Coverage -->
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Alexandr-Ananev_frontend-project-46&metric=coverage)](https://sonarcloud.io/dashboard?id=Alexandr-Ananev_frontend-project-46)
 
-### Пример работы пакета с вложенной структурой
+### Вложенная структура (stylish)
 [![asciicast](https://asciinema.org/a/Elbh5Og9tBeFemA557zivpSRT.svg)](https://asciinema.org/a/Elbh5Og9tBeFemA557zivpSRT)
+
+### Плоский формат (plain)
+[![CLI Demo](https://asciinema.org/a/cBHxtulyXufIwsXsT3PA6ky6q.svg)](https://asciinema.org/a/cBHxtulyXufIwsXsT3PA6ky6q)
