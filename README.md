@@ -10,5 +10,5 @@
 <!-- SonarCloud Coverage -->
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Alexandr-Ananev_frontend-project-46&metric=coverage)](https://sonarcloud.io/dashboard?id=Alexandr-Ananev_frontend-project-46)
 
-### Пример работы пакета
-[![asciicast](https://asciinema.org/a/LNau1txH2Dnw5osUa4GUf8Nsr.svg)](https://asciinema.org/a/LNau1txH2Dnw5osUa4GUf8Nsr)
+### Пример работы пакета с вложенной структурой
+[![asciicast](https://asciinema.org/a/Elbh5Og9tBeFemA557zivpSRT.svg)](https://asciinema.org/a/Elbh5Og9tBeFemA557zivpSRT)

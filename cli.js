@@ -1,29 +1,28 @@
 #!/usr/bin/env node
 
-import { Command } from 'commander'
-import { genDiff } from './gendiff.js'
+import { program } from 'commander'
 import { parseFile } from './parsers.js'
-
-const program = new Command()
+import genDiff from './gendiff.js'
+import stylish from './formatters/stylish.js'
 
 program
   .name('gendiff')
   .description('Compares two configuration files and shows a difference.')
   .version('1.0.0')
+  .argument('<filepath1>')
+  .argument('<filepath2>')
+  .option('-f, --format <type>', 'output format', 'stylish')
+  .action((filepath1, filepath2, options) => {
+    const data1 = parseFile(filepath1)
+    const data2 = parseFile(filepath2)
 
-program
-  .argument('<filepath1>', 'path to first file')
-  .argument('<filepath2>', 'path to second file')
-  .action((filepath1, filepath2) => {
-    try {
-      const data1 = parseFile(filepath1)
-      const data2 = parseFile(filepath2)
-      console.log(genDiff(data1, data2))
+    const diff = genDiff(data1, data2)
+
+    if (options.format !== 'stylish') {
+      throw new Error(`Unknown format: ${options.format}`)
     }
-    catch (err) {
-      console.error(err.message)
-      process.exit(1)
-    }
+
+    console.log(stylish(diff))
   })
 
 program.parse(process.argv)

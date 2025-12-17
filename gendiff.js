@@ -1,23 +1,42 @@
 import _ from 'lodash'
 
-const getSortedKeys = (obj1, obj2) =>
-  _.sortBy([...new Set([...Object.keys(obj1), ...Object.keys(obj2)])])
+const genDiff = (obj1, obj2) => {
+  const keys = _.sortBy([...new Set([
+    ...Object.keys(obj1),
+    ...Object.keys(obj2),
+  ])])
 
-export const genDiff = (data1, data2) => {
-  const keys = getSortedKeys(data1, data2)
+  return keys.map((key) => {
+    if (!_.has(obj2, key)) {
+      return { key, type: 'removed', value: obj1[key] }
+    }
 
-  const lines = keys.flatMap((key) => {
-    if (!Object.prototype.hasOwnProperty.call(data2, key)) {
-      return [`- ${key}: ${data1[key]}`]
+    if (!_.has(obj1, key)) {
+      return { key, type: 'added', value: obj2[key] }
     }
-    if (!Object.prototype.hasOwnProperty.call(data1, key)) {
-      return [`+ ${key}: ${data2[key]}`]
+
+    const value1 = obj1[key]
+    const value2 = obj2[key]
+
+    if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
+      return {
+        key,
+        type: 'nested',
+        children: genDiff(value1, value2),
+      }
     }
-    if (_.isEqual(data1[key], data2[key])) {
-      return [`  ${key}: ${data1[key]}`]
+
+    if (_.isEqual(value1, value2)) {
+      return { key, type: 'unchanged', value: value1 }
     }
-    return [`- ${key}: ${data1[key]}`, `+ ${key}: ${data2[key]}`]
+
+    return {
+      key,
+      type: 'changed',
+      oldValue: value1,
+      newValue: value2,
+    }
   })
-
-  return `{\n${lines.join('\n')}\n}`
 }
+
+export default genDiff
