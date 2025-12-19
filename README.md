@@ -15,3 +15,7 @@
 
 ### Плоский формат (plain)
 [![CLI Demo](https://asciinema.org/a/cBHxtulyXufIwsXsT3PA6ky6q.svg)](https://asciinema.org/a/cBHxtulyXufIwsXsT3PA6ky6q)
+
+## Демонстрация работы CLI
+Вы можете посмотреть работу команды `gendiff` с разными форматами (`stylish`, `plain`, `json`) в записи Asciinema:
+[![Asciinema Demo](https://asciinema.org/a/iZwy6K5IjFxBdbv3qkAuJuGy4.svg)](https://asciinema.org/a/iZwy6K5IjFxBdbv3qkAuJuGy4)
