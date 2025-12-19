@@ -4,11 +4,12 @@ import genDiff from '../gendiff.js'
 import { parseFile } from '../parsers.js'
 import { test, expect, describe } from '@jest/globals'
 
-const readFile = filename => readFileSync(path.join('__fixtures__', filename), 'utf-8')
+const getFixturePath = filename => path.join('__fixtures__', filename)
+const readFile = filename => readFileSync(getFixturePath(filename), 'utf-8')
 
 test('gendiff json files with stylish', () => {
-  const data1 = parseFile('__fixtures__/file1.json')
-  const data2 = parseFile('__fixtures__/file2.json')
+  const data1 = parseFile(getFixturePath('file1.json'))
+  const data2 = parseFile(getFixturePath('file2.json'))
 
   const result = genDiff(data1, data2, 'stylish')
   const expected = readFile('expected.txt')
@@ -17,8 +18,8 @@ test('gendiff json files with stylish', () => {
 })
 
 test('gendiff yaml files with stylish', () => {
-  const data1 = parseFile('__fixtures__/file1.yml')
-  const data2 = parseFile('__fixtures__/file2.yml')
+  const data1 = parseFile(getFixturePath('file1.yml'))
+  const data2 = parseFile(getFixturePath('file2.yml'))
 
   const result = genDiff(data1, data2, 'stylish')
   const expected = readFile('expected.txt')
@@ -27,8 +28,8 @@ test('gendiff yaml files with stylish', () => {
 })
 
 test('gendiff json files with plain format', () => {
-  const data1 = parseFile('__fixtures__/file1.json')
-  const data2 = parseFile('__fixtures__/file2.json')
+  const data1 = parseFile(getFixturePath('file1.json'))
+  const data2 = parseFile(getFixturePath('file2.json'))
 
   const result = genDiff(data1, data2, 'plain')
   const expected = readFile('expectedPlain.txt')
@@ -38,8 +39,8 @@ test('gendiff json files with plain format', () => {
 
 describe('gendiff JSON format', () => {
   test('should return valid JSON string', () => {
-    const data1 = parseFile('__fixtures__/file1.json')
-    const data2 = parseFile('__fixtures__/file2.json')
+    const data1 = parseFile(getFixturePath('file1.json'))
+    const data2 = parseFile(getFixturePath('file2.json'))
 
     const result = genDiff(data1, data2, 'json')
 
