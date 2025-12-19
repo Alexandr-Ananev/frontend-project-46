@@ -4,7 +4,11 @@ import genDiff from '../gendiff.js'
 import { parseFile } from '../parsers.js'
 import { test, expect, describe } from '@jest/globals'
 
-const getFixturePath = filename => path.join('__fixtures__', filename)
+const getFixturePath = (filename) => {
+  if (path.isAbsolute(filename)) return filename
+  return path.join('__fixtures__', filename)
+}
+
 const readFile = filename => readFileSync(getFixturePath(filename), 'utf-8')
 
 test('gendiff json files with stylish', () => {
