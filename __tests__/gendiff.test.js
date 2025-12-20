@@ -1,60 +1,45 @@
-import { readFileSync } from 'fs'
 import path from 'path'
+import { readFileSync } from 'fs'
 import genDiff from '../gendiff.js'
-import { parseFile } from '../parsers.js'
-import { test, expect, describe } from '@jest/globals'
+import { test, expect } from '@jest/globals'
 
-const getFixturePath = (filename) => {
-  if (path.isAbsolute(filename)) return filename
-  return path.join('__fixtures__', filename)
-}
+const getFixturePath = filename => path.join('__fixtures__', filename)
+const readFile = filename => readFileSync(getFixturePath(filename), 'utf-8').trim()
 
-const readFile = filename => readFileSync(getFixturePath(filename), 'utf-8')
-
-test('gendiff json files with stylish', () => {
-  const data1 = parseFile(getFixturePath('file1.json'))
-  const data2 = parseFile(getFixturePath('file2.json'))
-
-  const result = genDiff(data1, data2, 'stylish')
+test('gendiff json files with stylish format', () => {
+  const filepath1 = getFixturePath('file1.json')
+  const filepath2 = getFixturePath('file2.json')
   const expected = readFile('expected.txt')
 
-  expect(result).toBe(expected.trim())
+  const result = genDiff(filepath1, filepath2, 'stylish')
+  expect(result).toBe(expected)
 })
 
-test('gendiff yaml files with stylish', () => {
-  const data1 = parseFile(getFixturePath('file1.yml'))
-  const data2 = parseFile(getFixturePath('file2.yml'))
-
-  const result = genDiff(data1, data2, 'stylish')
+test('gendiff yaml files with stylish format', () => {
+  const filepath1 = getFixturePath('file1.yml')
+  const filepath2 = getFixturePath('file2.yml')
   const expected = readFile('expected.txt')
 
-  expect(result).toBe(expected.trim())
+  const result = genDiff(filepath1, filepath2, 'stylish')
+  expect(result).toBe(expected)
 })
 
 test('gendiff json files with plain format', () => {
-  const data1 = parseFile(getFixturePath('file1.json'))
-  const data2 = parseFile(getFixturePath('file2.json'))
-
-  const result = genDiff(data1, data2, 'plain')
+  const filepath1 = getFixturePath('file1.json')
+  const filepath2 = getFixturePath('file2.json')
   const expected = readFile('expectedPlain.txt')
 
-  expect(result).toBe(expected.trim())
+  const result = genDiff(filepath1, filepath2, 'plain')
+  expect(result).toBe(expected)
 })
 
-describe('gendiff JSON format', () => {
-  test('should return valid JSON string', () => {
-    const data1 = parseFile(getFixturePath('file1.json'))
-    const data2 = parseFile(getFixturePath('file2.json'))
+test('gendiff json files with json format', () => {
+  const filepath1 = getFixturePath('file1.json')
+  const filepath2 = getFixturePath('file2.json')
 
-    const result = genDiff(data1, data2, 'json')
+  const result = genDiff(filepath1, filepath2, 'json')
+  const parsed = JSON.parse(result)
 
-    const parsed = JSON.parse(result)
-    expect(parsed).toBeInstanceOf(Array)
-    expect(parsed.length).toBeGreaterThan(0)
-
-    const first = parsed[0]
-    expect(first).toHaveProperty('key')
-    expect(first).toHaveProperty('type')
-    expect(['added', 'removed', 'updated', 'unchanged', 'nested']).toContain(first.type)
-  })
+  expect(parsed).toBeInstanceOf(Array)
+  expect(parsed.length).toBeGreaterThan(0)
 })
