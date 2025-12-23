@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/Alexandr-Ananev/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Alexandr-Ananev/frontend-project-46/actions)",
-  "main": "gendiff.js",
+  "main": "src/gendiff.js",
   "type": "module",
   "scripts": {
     "test": "jest",
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Alexandr-Ananev/frontend-project-46#readme",
   "bin": {
-    "gendiff": "./cli.js"
+    "gendiff": "bin/cli.js"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^5.6.1",
